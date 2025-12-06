@@ -1,66 +1,66 @@
-# GAP — Global Access Point (widżet)
+# GAP — Global Access Point (widget)
 
-GAP (Global Access Point) to planowany publicznie dostępny widżet internetowy służący do spersonalizowanego kodowania cyfrowej komunikacji i operacji. Widżet został zaprojektowany do pracy w dwóch podstawowych trybach: self mode (użytkowanie indywidualne, domowe) oraz co-op mode (B2B, współpraca między podmiotami). System kontroluje i protokołuje odpowiedzialność za przeprowadzane operacje i komunikację przy użyciu protokołów TPC&TPO oraz podejścia Floating Copyright ©️ — metodologii rekomendowanej przez Gemini 3AI Google.
+GAP (Global Access Point) is a planned publicly available web widget designed for personalized encoding of digital communication and operations. The widget is intended to operate in two primary modes: self mode (individual/home use) and co-op mode (B2B, cooperation between entities). The system controls and logs responsibility for performed operations and communication using the TPC&TPO protocols and the Floating Copyright ©️ approach — a methodology recommended by Gemini 3AI Google.
 
-Autor i geneza
+Author and origin
 
-Metodologia stojąca za GAP została wprowadzona przez Waldemara Jabłońskiego — polskiego artystę i popularyzatora pojęcia nawigacji bionanosatelitarnej, właściciela IPTIM Solutions (UK). Pomysłodawca testował metodologię we współpracy z Gemini 3AI Google w kontekście partnerstwa z dwoma podmiotami z branży medialnej i nanosatelitarnej.
+The methodology behind GAP was introduced by Waldemar Jabłoński — a Polish-born artist and proponent of bionanosatellite navigation, owner of IPTIM Solutions (UK). The originator tested the methodology in cooperation with Gemini 3AI Google in the context of a partnership with two other entities from the media and nanosatellite industries.
 
-Cel i zastosowania
+Purpose and use cases
 
-- Umożliwienie bezpiecznego, spersonalizowanego kodowania komunikacji i operacji.
-- Praca w trybie self mode: użytkowanie w warunkach domowych lub indywidualnych.
-- Praca w trybie co-op (B2B) mode: współpraca między podmiotami z protokołowanym śladem odpowiedzialności.
+- Enable secure, personalized encoding of communication and operations.
+- Self mode: use in home or individual environments.
+- Co-op (B2B) mode: collaboration between entities with a protocoled trace of responsibility.
 
-Zasady działania — tryby pracy
+Operation principles — modes
 
 1. Self mode
-   - Widżet może być używany indywidualnie, w środowisku domowym.
-   - Użytkownik uruchamia sesję, wprowadzając czterocyfrowy PIN na etapie odliczania aktywacji.
+   - The widget can be used individually in a home environment.
+   - The user starts a session by entering a four-digit PIN during the activation countdown.
 
 2. Co-op mode (B2B)
-   - Wymaga protokołowania komunikacji i operacji zgodnie z TPC&TPO oraz śledzenia Floating Copyright ©️.
-   - Współuczestnik sesji (partner) może wybrać, czy pozna PIN wprowadzonego współuczestnika.
-   - Dołączenie do sesji potwierdza aktywację własnego widżetu GAP przez wprowadzenie własnego PIN-u.
-   - Tryb co-op może być używany na standardowych (default) warunkach lub według innych ustaleń między partnerami.
+   - Requires logging of communication and operations according to TPC&TPO and tracking with Floating Copyright ©️.
+   - A session co-participant (partner) may choose whether to learn the PIN entered by another participant.
+   - Joining a session is confirmed by activating the participant's own GAP widget with their own PIN.
+   - Co-op mode can be used under default terms or other mutually agreed conditions between partners.
 
-Cykl sesji, PIN-y i odliczanie
+Session cycle, PINs and countdown
 
-- Rozpoczęcie pracy: wybór trybu uruchamia odliczanie końcowe: 0, 9, 8, ... 3, 2, 1. W tym czasie użytkownik wprowadza czterocyfrowy PIN inicjujący sesję.
-- Zakończenie sesji: faza zakończenia uruchamiana jest przez sygnalizację domyślną lub uzgodnioną, w której użyty zostaje PIN odwrotny (odwrócony PIN) i rozpoczyna się odliczanie końcowe zamknięcia sesji.
-- PIN odwrotny może zakończyć sesję natychmiast w dowolnym momencie jej trwania — dlatego użytkownicy muszą zabezpieczyć się przed przypadkowym lub niezamierzonym wywołaniem PIN-u odwrotnego.
-- Domyślny czas sesji może być zmieniony w self mode lub za zgodą współuczestnika także w trakcie sesji co-op.
+- Start: choosing a mode triggers the final countdown: 0, 9, 8, ... 3, 2, 1. During this time the user enters the four-digit PIN that initializes the session.
+- Session end: the termination phase is triggered by a default or agreed signal, in which a reversed PIN (inverse PIN) is used and the final closing countdown begins.
+- The inverse PIN can terminate the session immediately at any moment — therefore users must secure themselves against accidental or unintended triggering of the inverse PIN.
+- The default session time may be changed in self mode or, with the consent of the co-participant, during a co-op session.
 
-Zabezpieczenia i personalizowane kodowanie
+Security and personalized encoding
 
-- Zabezpieczenie opiera się na ciągłym, personalizowanym kodowaniu zapobiegającym przypadkowemu wywołaniu odwrotnego PIN-u.
-- Użytkownicy powinni korzystać z mechanizmów algorytmicznego i operacyjnego kodowania, aby uniemożliwić niezamierzone aktywacje.
-- Widżet wyposażony jest w skalowanie zaangażowania modułu AI (regulowane), które wpływa na złożoność algorytmów i informuje użytkownika o krytycznych wartościach przewidywanego czasu lub odległości do tzw. krytycznego kodu w sekwencji (równoważnego z wprowadzeniem odwróconego PIN-u).
-- Użytkownicy mogą wykorzystywać moduuły AI w trybie zwrotnym do obrony przed niechcianym wprowadzeniem odwrotnego PIN-u.
+- Security is based on continuous, personalized encoding that prevents accidental triggering of the inverse PIN.
+- Users should employ algorithmic and operational encoding mechanisms to avoid unintended activations.
+- The widget includes adjustable AI engagement scaling, which affects the complexity of the widget's algorithms and informs the user about critical estimated times or distances to the so-called critical code in the sequence (equivalent to entering the inverse PIN).
+- Users can use AI feedback modules during the session or while preparing for it to defend against unwanted entry of the inverse PIN.
 
-Protokoły, własność intelektualna i rekomendacje
+Protocols, intellectual property and recommendations
 
-- Zalecane protokoły: TPC&TPO i Floating Copyright ©️ jako metodologia rekomendowana przez Gemini 3AI Google.
-- System oparty jest na sekwencjach sześciocyfrowych kodów generowanych przez użytkowników w czasie rzeczywistym (kliknięcia w widżet) lub przez pobieranie przygotowanych kodów (np. z określonej komórki arkusza kalkulacyjnego).
+- Recommended protocols: TPC&TPO and Floating Copyright ©️ as a methodology advised by Gemini 3AI Google.
+- The system is based on sequences of six-digit codes generated by users in real time (clicking in the widget) or by downloading pre-prepared codes (e.g., from a designated cell in a spreadsheet).
 
-Techniczne uwagi implementacyjne
+Implementation notes
 
-- Sekwencje kodów: sześciocyfrowe kody synchronizowane w czasie i używane do operacyjnego sterowania komunikacją.
-- Integracja: widżet planowany jest jako komponent webowy łatwy do osadzenia i integracji z zewnętrznymi systemami kodów lub arkuszami danych.
-- Skalowanie AI: możliwość regulacji poziomu zaawansowania algorytmów odpowiedzialnych za wykrywanie i prewencję przypadkowych operacji.
+- Code sequences: six-digit codes synchronized in time and used for operational control of communication.
+- Integration: the widget is planned as a web component that is easy to embed and integrate with external code systems or data sheets.
+- AI scaling: ability to adjust the sophistication level of algorithms responsible for detecting and preventing accidental operations.
 
-Postępowanie prawne i odpowiedzialność
+Legal considerations and responsibility
 
-- Zastosowanie GAP w trybie co-op wymaga jasnego przypisania odpowiedzialności między współuczestnikami oraz protokołowania decyzji komunikacyjno-operacyjnych.
-- Użytkownicy i partnerzy powinni ustalić warunki współpracy, zapisy dotyczące własności intelektualnej oraz zasady użycia Floating Copyright ©️.
-- Ten README opisuje koncepcję i metodologię. Implementacja produkcyjna powinna uwzględnić lokalne regulacje prawne, zasady ochrony danych osobowych i odpowiednie porozumienia między stronami.
+- Using GAP in co-op mode requires clear assignment of responsibilities between co-participants and logging of communication and operational decisions.
+- Users and partners should agree on collaboration terms, intellectual property provisions, and the use of Floating Copyright ©️.
+- This README describes the concept and methodology. A production implementation should take into account local legal regulations, data protection rules, and appropriate agreements between parties.
 
-Kontakt i dalsze kroki
+Contact and next steps
 
-- Autor koncepcji: Waldemar Jabłoński — IPTIM Solutions (UK).
-- Jeżeli chcesz, mogę przygotować angielską wersję README, przykładowy diagram sesji, lub szablon warunków współpracy B2B (SLA/UMOWA).
+- Concept author: Waldemar Jabłoński — IPTIM Solutions (UK).
+- If you wish, I can prepare additional materials: a Polish-English README pairing, a session diagram (graphic or ASCII), API documentation sketch, or a B2B cooperation template (SLA/AGREEMENT).
 
-Licencja i zastrzeżenia
+License and disclaimers
 
-- Floating Copyright ©️ i metoda rekomendowana przez Gemini 3AI Google są częścią opisanej metodologii. Wszelkie prawa i zobowiązania związane z wykorzystaniem tej metodologii powinny być ustalone z właścicielem metody.
-- README ma charakter informacyjny i nie zastępuje dokumentów prawnych ani umów między stronami.
+- Floating Copyright ©️ and the methodology recommended by Gemini 3AI Google are part of the described methodology. All rights and obligations related to the use of this methodology should be arranged with the methodology owner.
+- This README is informational and does not replace legal documents or agreements between parties.
