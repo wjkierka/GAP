@@ -1,20 +1,45 @@
-﻿<!DOCTYPE html>
-<html lang="pl">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mój Prosty Widget</title>
-    <link rel="stylesheet" href="style.css"> 
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>GAP widget demo</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div id="widget-container">
-        <h1>Witaj w Najprostszym Widgecie!</h1>
-        <p>To jest statyczna treść.</p>
-        <button id="main-button">Kliknij Mnie</button>
-        <p id="output-message"></p>
-    </div>
+  <main>
+    <h1>GAP widget demo</h1>
+    <p>This page includes a simple spreadsheet-like demo. To test the widget:
+      1) Click the GAP icon once to enter <strong>standby</strong> mode; 2) Drag the icon near a cell; 3) Click a cell (it will be highlighted) to set it as the target; 4) Click the GAP icon repeatedly to generate digits appended to the selected cell (demo: up to 6 digits).
+    </p>
 
+    <section class="sheet" aria-label="Demo spreadsheet">
+      <div class="row">
+        <div class="cell gapp-target" contenteditable="true"> </div>
+        <div class="cell gapp-target" contenteditable="true"> </div>
+        <div class="cell gapp-target" contenteditable="true"> </div>
+      </div>
+      <div class="row">
+        <div class="cell gapp-target" contenteditable="true"> </div>
+        <div class="cell gapp-target" contenteditable="true"> </div>
+        <div class="cell gapp-target" contenteditable="true"> </div>
+      </div>
+      <div class="row">
+        <div class="cell gapp-target" contenteditable="true"> </div>
+        <div class="cell gapp-target" contenteditable="true"> </div>
+        <div class="cell gapp-target" contenteditable="true"> </div>
+      </div>
+    </section>
 
-    <script src="script.js"></script> 
+    <p class="note">Note: This demo works on same-origin pages. Integrations with external spreadsheets (Google Sheets etc.) require platform-specific APIs or browser extensions.</p>
+  </main>
+
+  <!-- Floating GAP icon -->
+  <div id="gap-icon" role="button" aria-label="GAP widget">
+    <img src="gapa.png" alt="GAP icon" />
+    <div id="gap-badge">idle</div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
