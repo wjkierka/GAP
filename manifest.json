@@ -1,0 +1,16 @@
+﻿{
+  "name": "GAP Green Button Widget",
+  "short_name": "GAP Widget",
+  "description": "Widget do inicjowania testu TPC&TPO (Rekomendacja Gemini 3AI)",
+  "icons": [
+    {
+      "src": "/GAPA.png",
+      "sizes": "161x235",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#007bff",
+  "theme_color": "#007bff"
+}
