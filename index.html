@@ -11,29 +11,36 @@
 </head>
 <body>
   <main>
-    <h1>GAP Widget: Rejestrator Sesji</h1>
-    <p>Ten widget rejestruje ramy czasowe Twojej sesji 'poza widgetem' (self mode lub co-op mode) i zarządza kodami korelacyjnymi.</p>
-    <ol>
-        <li><strong>Faza 1 (Start Sesji):</strong> Kliknij ikonę, aby wejść w tryb <strong>czuwania</strong>. Kliknij **Komórkę 1**. Wprowadź 6 cyfr: **Tryb/AI (1)**, **PIN (4 cyfry)** w pozycjach 2-5, **Wybór Biznesowy/Start (1)**. Faza jest objęta **odliczaniem końcowym**.</li>
-        <li><strong>Faza 2 (Sesja Zewnętrzna):</strong> Widget oczekuje na **Kod Środkowy** (protokół TPC&TPO / FC) w **Komórce 2**, a czas sesji jest mierzony.</li>
-        <li><strong>Faza 3 (Zakończenie):</strong> Po wprowadzeniu Kodu Środkowego, uzupełnij **Kod 3** (wyświetlony z odwróconym PIN-em) w pozycjach 1 i 6. Ta faza ma **odliczanie końcowe**.</li>
-    </ol>
+    <h1>GAP Widget GAP: Rejestrator Sesji</h1>
+    <p>Ten widget rejestruje ramy czasowe Twojej sesji 'poza widgetem' (self mode lub co-op mode) i zarządza kodami korelacyjnymi.
+      <ol>
+        <li><strong>Inicjacja (Przedtakt):</strong> Kliknij ikonę, aby wejść w tryb <strong>czuwania</strong>. Kliknij <strong>Komórkę 1</strong> (Kod Początkowy). Wprowadź 6 cyfr: **Tryb/AI (1)** + **PIN (4)** + **Wybór Biznesowy/Start (1)**. Masz <strong><span id="timer-display">15</span> sekund</strong>.</li>
+        <li><strong>Sesja:</strong> Widget przechodzi w stan <strong>Gotowości</strong>. Rozpocznij pracę poza widgetem.</li>
+        <li><strong>Zakończenie:</strong> Wprowadź **Kod Środkowy** (z protokołem TPC/FC) do **Komórki 2**. Następnie kliknij **Komórkę 3** (Kod Końcowy) i wprowadź **Kod 3** (z odwrotnym PIN-em). Masz **<span id="timer-display-end">15</span> sekund**.</li>
+      </ol>
+    </p>
 
     <section class="sheet" aria-label="Kody sesji GAP">
       <div class="row">
-        <div id="code-1" class="cell gapp-target" contenteditable="true" data-max-length="6" aria-label="Kod Początkowy"></div>
-        <div id="code-2" class="cell gapp-target" contenteditable="true" data-max-length="6" aria-label="Kod Środkowy"></div>
-        <div id="code-3" class="cell gapp-target" contenteditable="true" data-max-length="6" aria-label="Kod Końcowy"></div>
+        <div id="code-1" class="cell gapp-target" contenteditable="true" aria-label="Kod Początkowy (Przedtakt)">Kod 1</div>
+        <div id="code-2" class="cell gapp-target" contenteditable="true" aria-label="Kod Środkowy (Raport)">Kod 2</div>
+        <div id="code-3" class="cell gapp-target" contenteditable="true" aria-label="Kod Końcowy (Zakończenie)">Kod 3</div>
       </div>
     </section>
     
-    <div id="status-box">
-        <p id="timer-status" style="color:red; font-weight:bold;"></p>
-        <p id="session-info" style="color:#007bff; font-weight:bold;">Status: Oczekuję na inicjację.</p>
-        <p id="final-code-info" style="color:red; display:none; margin-top: 10px;">Kod Końcowy (3): <span id="final-code-value"></span></p>
-    </div>
+    <p id="session-info" class="note" style="color:#007bff; font-weight:bold;">Status: Oczekuję na inicjację.</p>
+    <p id="final-code-info" class="note" style="color:red; display:none; margin-top: 10px;"><strong>Kod Końcowy (Kod 3):</strong> <span id="final-code-value"></span></p>
 
   </main>
+
+  <div id="gap-icon" role="button" aria-label="GAP widget">
+    <img src="GAPA.png" alt="GAP icon" />
+    <div id="gap-badge">idle</div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
   <div id="gap-icon" role="button" aria-label="GAP widget">
     <img src="GAPA.png" alt="GAP icon" />
