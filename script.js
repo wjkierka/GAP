@@ -2,38 +2,362 @@
   const icon = document.getElementById('gap-icon');
   const badge = document.getElementById('gap-badge');
   const sessionInfo = document.getElementById('session-info');
+  const timerStatus = document.getElementById('timer-status');
   const code1El = document.getElementById('code-1');
   const code2El = document.getElementById('code-2');
   const code3El = document.getElementById('code-3');
   const finalCodeInfo = document.getElementById('final-code-info');
   const finalCodeValue = document.getElementById('final-code-value');
-  const timerDisplay = document.getElementById('timer-display');
-  const timerDisplayEnd = document.getElementById('timer-display-end');
   
   const MAX_DIGITS = 6;
-  const END_COUNTDOWN_TIME = 15; // Czas odliczania końcowego w sekundach (dla Fazy 1 i Fazy 3)
+  const END_COUNTDOWN_TIME = 15; // Countdown time in seconds
+  const SESSION_DEFAULT_DURATION = 1800; // Default external session time (30 min)
 
   let standby = false;
   let dragging = false;
   let activeTarget = null;
   let sessionState = 'idle'; // 'idle', 'standby', 'code1_input', 'session_active', 'code3_input', 'finished'
-  let digitsCount = 0;
-  let countdownTimer = null;
   
-  let sessionData = {}; // Przechowuje PIN, Kod 1, Kod 3, Czas Początkowy
+  let countdownTimer = null;
+  let sessionTimer = null; 
+  let sessionStartTime = 0;
+
+  let sessionData = {}; 
 
   // --- Helpers ---
   function setBadge(text){ badge.textContent = text; }
   function setSessionStatus(text, color = '#007bff'){ sessionInfo.textContent = 'Status: ' + text; sessionInfo.style.color = color; }
+  function setTimerStatus(text, color = 'red'){ timerStatus.textContent = text; timerStatus.style.color = color; }
 
-  // --- Korelacja i Logika Kodowania ---
+  function clearActiveTarget(){ 
+      if(activeTarget){ 
+          activeTarget.classList.remove('active','gap-highlight'); 
+          activeTarget.contentEditable = 'false';
+      } 
+      activeTarget = null;
+  }
+  
+  function activateTarget(el){
+      clearActiveTarget();
+      activeTarget = el;
+      activeTarget.classList.add('active','gap-highlight');
+      activeTarget.contentEditable = 'true';
+      el.focus(); // Ensure focus for typing
+      // Reset contentEditable state to ensure correct typing direction
+      el.textContent = el.textContent || '';
+      moveCursorToEnd(el);
+  }
+
+  function moveCursorToEnd(el) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(el);
+      range.collapse(false);
+      selection.removeAllRanges();
+      selection.addRange(range);
+  }
+
+  // --- Correlation Logic ---
   function generateCode3(code1){
-    const pin = code1.substring(1, 5); // 4 cyfry PIN
-    const reversedPin = pin.split('').reverse().join(''); // Odwrócony PIN
-    const firstDigit = code1[0]; // Cyfra 1 (Tryb/AI)
-    const lastDigit = code1[5]; // Cyfra 6 (Deklaracja B2B/Biznesowa)
+    const pin = code1.substring(1, 5);
+    const reversedPin = pin.split('').reverse().join('');
     
-    // Kod 3 (Końcowy): Cyfra 1 + PIN Odwrotny (4 cyfry) + Cyfra 6
+    const maskedCode3 = '*' + reversedPin + '*';
+    const fullCode3 = code1[0] + reversedPin + code1[5];
+    
+    return {masked: maskedCode3, full: fullCode3, reversedPin: reversedPin};
+  }
+  
+  // --- Timer Logic (Session Timer - Faza 2) ---
+  function updateSessionTimer(){
+      const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
+      const remaining = Math.max(0, SESSION_DEFAULT_DURATION - elapsed);
+      
+      const formatTime = (seconds) => {
+          const m = Math.floor(seconds / 60);
+          const s = seconds % 60;
+          return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      };
+
+      if (remaining <= 0) {
+          clearInterval(sessionTimer);
+          setTimerStatus(`[Faza 2] SESSION TIME (Limit: ${formatTime(SESSION_DEFAULT_DURATION)}): ${formatTime(elapsed)} (Time exceeded!)`, 'red');
+      } else {
+          setTimerStatus(`[Faza 2] SESSION TIME: ${formatTime(elapsed)} / Remaining: ${formatTime(remaining)}`, 'red');
+      }
+  }
+
+  function startSessionTimer(){
+      sessionStartTime = Date.now();
+      if(sessionTimer) clearInterval(sessionTimer);
+      sessionTimer = setInterval(updateSessionTimer, 1000);
+      updateSessionTimer();
+  }
+
+  function stopSessionTimer(){
+      if(sessionTimer) clearInterval(sessionTimer);
+      sessionTimer = null;
+  }
+
+  // --- Countdown Logic (Faza 1 & 3) ---
+  function startCountdown(duration, phaseName, callback){
+    if(countdownTimer) clearInterval(countdownTimer);
+    let timeRemaining = duration;
+    
+    function updateTimer(){
+        setTimerStatus(`[Faza ${phaseName}] COUNTDOWN: ${timeRemaining}s`, 'red');
+        if(timeRemaining <= 0){
+            clearInterval(countdownTimer);
+            callback(true);
+            return;
+        }
+        timeRemaining--;
+    }
+    
+    updateTimer();
+    countdownTimer = setInterval(updateTimer, 1000);
+  }
+  
+  function stopCountdown(){
+    if(countdownTimer) clearInterval(countdownTimer);
+    countdownTimer = null;
+  }
+
+  // --- State Transitions ---
+
+  function enterStandby(){ 
+      // Reset All
+      standby = true; 
+      icon.classList.add('standby'); 
+      setBadge('standby');
+      setSessionStatus('Select Cell 1 to start Phase 1.');
+      sessionState = 'standby';
+      code1El.textContent = '';
+      code2El.textContent = '';
+      code3El.textContent = '';
+      setTimerStatus('');
+      finalCodeInfo.style.display = 'none';
+      clearActiveTarget();
+  }
+  
+  function exitStandby(){ 
+      // Reset All and Exit
+      standby = false; 
+      icon.classList.remove('standby'); 
+      setBadge('idle'); 
+      setSessionStatus('Awaiting initialization.');
+      sessionState = 'idle';
+      stopCountdown();
+      stopSessionTimer();
+      clearActiveTarget(); 
+  }
+
+  // --- Faza I Logic ---
+  function handleCode1Input(code){
+      stopCountdown(); 
+      
+      const {masked: maskedCode3, full: fullCode3, reversedPin} = generateCode3(code);
+      
+      sessionData = {
+          code1: code,
+          pin: code.substring(1, 5),
+          mode: (code[0] === '0') ? 'Co-op' : 'Self',
+          code3_full: fullCode3,
+          code3_masked: maskedCode3,
+          reversedPin: reversedPin,
+      };
+      
+      // Phase 2 Preparation
+      code3El.textContent = sessionData.code3_masked;
+      finalCodeValue.textContent = sessionData.code3_masked;
+      finalCodeInfo.style.display = 'block';
+
+      sessionState = 'session_active';
+      clearActiveTarget();
+      code2El.classList.add('gap-highlight'); // Highlight Cell 2
+      
+      setSessionStatus(`SESSION ACTIVE: ${sessionData.mode} Mode. Awaiting Middle Code (Cell 2).`, 'green');
+      startSessionTimer(); 
+      
+      activateTarget(code2El); 
+  }
+
+  // --- Faza II Logic (Middle Code) ---
+  function handleCode2Paste(code){
+      if(code.length !== MAX_DIGITS) return;
+      
+      stopSessionTimer(); 
+      sessionData.code2 = code; 
+
+      // Phase 3 Preparation
+      sessionState = 'code3_input';
+      clearActiveTarget();
+      code2El.classList.remove('gap-highlight');
+      code3El.classList.add('gap-highlight'); 
+      
+      setSessionStatus('SESSION CONCLUDED. Complete End Code (Cell 3). 15 seconds countdown starts.', 'orange');
+
+      startCountdown(END_COUNTDOWN_TIME, 3, (timeout) => {
+          if(timeout && sessionState === 'code3_input'){
+              setSessionStatus('SESSION ERROR: Time exceeded for End Code (Cell 3).', 'red');
+              sessionState = 'finished';
+              clearActiveTarget();
+          }
+      });
+      
+      activateTarget(code3El); 
+  }
+  
+  // --- Faza III Logic ---
+  function handleCode3Input(code){
+      // Simplified check for Code 3 completion
+      if(code.length !== MAX_DIGITS || code.includes('*')) return; 
+      
+      stopCountdown();
+      
+      if(code === sessionData.code3_full){
+          setSessionStatus(`GAP FINAL: Session Complete! Reversed PIN: ${sessionData.reversedPin}.`, 'purple');
+          sessionState = 'finished';
+      } else {
+          setSessionStatus('GAP FINAL: ERROR. Entered End Code does not match the required code.', 'red');
+          sessionState = 'finished';
+      }
+      
+      clearActiveTarget();
+      finalCodeInfo.style.display = 'none';
+      setTimerStatus('');
+  }
+
+  // --- Event Handlers ---
+  
+  icon.addEventListener('click', e => {
+    e.stopPropagation();
+    if(dragging) return;
+    if(sessionState === 'idle' || sessionState === 'finished') {
+      enterStandby();
+    } else if(sessionState === 'standby') {
+      exitStandby();
+    }
+  });
+
+  // Cell Activation Logic
+  document.addEventListener('click', e => {
+    const el = e.target.closest && e.target.closest('.gapp-target');
+    if(!el) return;
+
+    if(el.id === 'code-1' && sessionState === 'standby'){
+        // START Phase 1
+        activateTarget(el);
+        el.textContent = '';
+        sessionState = 'code1_input';
+        
+        setSessionStatus('Enter Start Code (PIN 2-5). 15 seconds countdown starts!', 'red');
+        startCountdown(END_COUNTDOWN_TIME, 1, (timeout) => {
+            if(timeout && sessionState === 'code1_input' && el.textContent.length < MAX_DIGITS){
+                setSessionStatus('INPUT ERROR: Time exceeded for Start Code (Cell 1).', 'red');
+                sessionState = 'finished';
+                clearActiveTarget();
+            }
+        });
+
+    } else if(el.id === 'code-3' && sessionState === 'code3_input'){
+        // START Phase 3 (if not already active)
+        if(activeTarget !== el) activateTarget(el);
+        
+    } else if (el.id === 'code-2' && sessionState === 'session_active') {
+        // Activate Cell 2 (for pasting Middle Code)
+        activateTarget(el);
+        
+    } else {
+        e.preventDefault(); e.stopPropagation();
+    }
+  }, true);
+
+  // Input Handling (Ensures numbers, limits length, and handles Code 3 mask)
+  document.addEventListener('input', e => {
+      const el = e.target;
+      if (!el.classList.contains('gapp-target') || activeTarget !== el) return;
+      
+      // 1. Filter input to only allow numbers (and *) and limit length
+      let currentCode = el.textContent.replace(/[^0-9*]/g, '');
+      const maxLength = parseInt(el.dataset.maxLength || MAX_DIGITS);
+      
+      // 2. Logic for Cell 3 (End Code) - Maintaining the mask
+      if (el.id === 'code-3' && sessionState === 'code3_input') {
+          const pinPart = sessionData.code3_masked.substring(1, 5); // Reversed PIN
+          
+          let firstChar = currentCode[0] && currentCode[0] !== '*' ? currentCode[0] : '*';
+          let lastChar = currentCode[5] && currentCode[5] !== '*' ? currentCode[5] : '*';
+          
+          currentCode = firstChar + pinPart + lastChar;
+          
+      } else {
+          // For Cells 1 and 2 - standard length restriction
+          currentCode = currentCode.substring(0, maxLength);
+      }
+      
+      el.textContent = currentCode;
+      
+      // Restore cursor position to end (Crucial fix for contenteditable behavior)
+      moveCursorToEnd(el);
+
+      // --- Logic Upon 6 Digits ---
+      if (currentCode.length === MAX_DIGITS) {
+          if (el.id === 'code-1' && sessionState === 'code1_input') {
+              handleCode1Input(currentCode);
+          } else if (el.id === 'code-2' && sessionState === 'session_active') {
+              // This handles both typing and pasting (as contenteditable paste triggers 'input')
+              handleCode2Paste(currentCode);
+          }
+      } 
+      // Specific check for Code 3 completion (when '*' are replaced)
+      if (el.id === 'code-3' && sessionState === 'code3_input' && !currentCode.includes('*')) {
+          handleCode3Input(currentCode);
+      }
+      
+  });
+
+
+  // --- Initialization/Positioning (Drag & Drop functionality retained) ---
+  
+  // Restore last position...
+  const stored = localStorage.getItem('gap-position');
+  if (stored) {
+    try { const pos = JSON.parse(stored); icon.style.right = 'auto'; icon.style.left = pos.x + 'px'; icon.style.top = pos.y + 'px'; icon.style.bottom = 'auto'; }
+    catch(e){}
+  }
+  
+  // ... (rest of drag&drop code)
+  let pointerOffset = {x:0,y:0};
+  icon.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    dragging = true; icon.classList.add('grabbing');
+    icon.setPointerCapture(e.pointerId);
+    const rect = icon.getBoundingClientRect();
+    pointerOffset.x = e.clientX - rect.left;
+    pointerOffset.y = e.clientY - rect.top;
+  });
+  window.addEventListener('pointermove', e => {
+    if(!dragging) return;
+    const x = e.clientX - pointerOffset.x;
+    const y = e.clientY - pointerOffset.y;
+    const rectWidth = () => icon.getBoundingClientRect().width;
+    const rectHeight = () => icon.getBoundingClientRect().height;
+    icon.style.left = Math.max(4, Math.min(window.innerWidth - rectWidth(), x)) + 'px';
+    icon.style.top = Math.max(4, Math.min(window.innerHeight - rectHeight(), y)) + 'px';
+  });
+  window.addEventListener('pointerup', e => {
+    if(!dragging) return;
+    dragging = false; icon.classList.remove('grabbing');
+    try{ icon.releasePointerCapture(e.pointerId) } catch(_){}
+    localStorage.setItem('gap-position', JSON.stringify({x: parseInt(icon.style.left||0,10), y: parseInt(icon.style.top||0,10)}));
+  });
+
+  icon.addEventListener('dblclick', e => { exitStandby(); setSessionStatus('Awaiting initialization.', '#007bff'); });
+  // initialize
+  setBadge('idle');
+
+})();
     const code3 = firstDigit + reversedPin + lastDigit;
     return {code: code3, pin: reversedPin};
   }
