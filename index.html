@@ -1,39 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>GAP Widget: Session Tracker </title>
-  <link rel="stylesheet" href="style.css" />
-<link rel="manifest" href="/manifest.json">
-<link rel="apple-touch-icon" href="/GAPA.png">
-<link rel="icon" href="/GAPA.png" sizes="32x32">
+    <meta charset="UTF-8">
+    <title>GAP Widget: Session Tracker Green Button</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <main>
-    <h1>GAP Widget: Session Tracker</h1>
-    <p>This widget tracks the temporal framework of your 'off-widget session' (self mode or co-op mode) and manages correlation codes.</p>
-    <ol>
-        <li><strong>Code 1 (Start):</strong> Click the icon to enter **Standby** mode. Click **Cell 1 (Start Code)**. Enter 6 digits: **Mode/AI (1)**, **PIN (4 digits)** in positions 2-5, **Business Choice/Start (1)**. This phase has a **countdown timer**.</li>
-        <li><strong>Code 2 (External Session):</strong> The widget awaits the **Middle Code** (TPC & TPO / Floating Copyright ©️ protocol) in **Cell 2**, while the session time is measured.</li>
-        <li><strong>Code 3 (Conclusion):</strong> After entering the Middle Code, complete **Code 3** (displayed with the reversed PIN mask) in positions 1 and 6. This phase has a **countdown timer**.</li>
-    </ol>
 
-    <section class="sheet" aria-label="GAP Session Codes">
-      <div class="row">
-        <div id="code-1" class="cell gapp-target" contenteditable="true" data-max-length="6" aria-label="Start Code"></div>
-        <div id="code-2" class="cell gapp-target" contenteditable="true" data-max-length="6" aria-label="Middle Code"></div>
-        <div id="code-3" class="cell gapp-target" contenteditable="true" data-max-length="6" aria-label="End Code"></div>
-      </div>
-    </section>
-    
-    <div id="status-box">
-        <p id="timer-status" style="color:red; font-weight:bold;"></p>
-        <p id="session-info" style="color:#007bff; font-weight:bold;">Status: Awaiting initialization.</p>
-        <p id="final-code-info" style="color:red; display:none; margin-top: 10px;">End Code (3): <span id="final-code-value"></span></p>
+    <h1>GAP Widget: Session Tracker Green Button</h1>
+
+    <div id="green-button" draggable="true">
+        <span id="status-indicator">IDLE</span>
     </div>
 
-  </main>
+    <div id="top-control-panel">
+        <input type="text" id="code-input-1" maxlength="6" placeholder="CODE 1" style="background:#000; color:#2ecc71; border:1px solid #2ecc71; text-align:center; padding:10px;">
+    </div>
+
+    <div id="graph-container">
+        <div class="controller" style="top:5%; left:50%;" title="Unknown"></div>
+        <div class="controller" style="top:50%; left:95%;" title="Project"></div>
+        <div class="controller" style="top:95%; left:50%;" title="Creator"></div>
+        <div class="controller" style="top:50%; left:5%;" title="Interpreter"></div>
+    </div>
+
+    <div id="bottom-control-panel" style="display:flex; gap:15px; margin-top:20px;">
+        <select id="protocol-a" style="background:#111; color:#2ecc71; border:1px solid #444;"><option>PROTOCOL A</option></select>
+        <select id="protocol-b" style="background:#111; color:#2ecc71; border:1px solid #444;"><option>PROTOCOL B</option></select>
+    </div>
+
+    <div class="documentation-text">
+        <hr style="border:0; border-top:1px solid #222; margin: 40px 0;">
+        <p>The <strong>AUTARTOS S.A.</strong> system represents a pinnacle of sovereign digital navigation. By integrating 2D circular geometry with 4D time polynomials, the GAP Widget secures the user's Absolute Monarchy in "self-mode".</p>
+        <p>Current operational status is tracked via the floating Green Button, which monitors phases from IDLE to CLOSE, ensuring TPC & TPO protocol integrity.</p>
+        <p>Read the full <a href="MANIFESTO_ART3AI.md" class="manifesto-link">MANIFESTO_ART3AI.md</a> for deep-background insights.</p>
+    </div>
+
+    <script>
+        const tracker = document.getElementById('green-button');
+        const status = document.getElementById('status-indicator');
+
+        // Prosta logika przesuwania (drag)
+        tracker.onmousedown = function(event) {
+            tracker.style.position = 'absolute';
+            moveAt(event.pageX, event.pageY);
+            function moveAt(pageX, pageY) {
+                tracker.style.left = pageX - tracker.offsetWidth / 2 + 'px';
+                tracker.style.top = pageY - tracker.offsetHeight / 2 + 'px';
+            }
+            function onMouseMove(event) { moveAt(event.pageX, event.pageY); }
+            document.addEventListener('mousemove', onMouseMove);
+            tracker.onmouseup = function() {
+                document.removeEventListener('mousemove', onMouseMove);
+                tracker.onmouseup = null;
+            };
+        };
+        tracker.ondragstart = function() { return false; };
+
+        // Logika faz (przykład)
+        document.getElementById('code-input-1').addEventListener('input', (e) => {
+            if(e.target.value.length === 6) {
+                status.innerText = "PHASE 1";
+                tracker.style.background = "#f1c40f"; // Zmiana koloru na standby
+            }
+        });
+    </script>
+</body>
+</html>
 
   <div id="gap-icon" role="button" aria-label="GAP widget">
     <img src="GAPA.png" alt="GAP icon" />
