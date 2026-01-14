@@ -1,39 +1,77 @@
 body {
-    background-color: #050505; /* Głęboka czerń kosmosu */
+    background-color: #050505;
     color: #e0e0e0;
     font-family: 'Georgia', serif;
     margin: 0;
-    padding: 20px; /* Margines bezpieczeństwa od krawędzi ekranu */
+    padding: 15px;
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
+    box-sizing: border-box; /* Ważne dla marginesów na telefonie */
 }
 
 h1 {
     color: #2ecc71;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     text-align: center;
-    margin-bottom: 30px;
+    margin: 10px 0 20px 0;
 }
 
 #graph-container {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 90vw; /* Na telefonie zajmuje 90% szerokości */
+    max-width: 400px; /* Ale nie więcej niż 400px na komputerze */
+    aspect-ratio: 1 / 1; /* Zawsze idealne koło */
     border: 1px solid rgba(46, 204, 113, 0.3);
     border-radius: 50%;
     background: url('acacia_bg.jpg') no-repeat center; 
     background-size: cover;
-    /* Efekt wtopienia dołu obrazka w tło */
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 85%, transparent 100%);
     box-shadow: 0 0 40px rgba(0,0,0,0.8);
-    margin: 40px auto;
+    margin: 20px auto;
 }
 
-/* Pływający Session Tracker (Green Button) */
+/* Pływający Session Tracker - Obsługa dotyku */
 #green-button {
+    width: 50px;
+    height: 50px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    cursor: move;
+    touch-action: none; /* Blokuje przewijanie strony podczas przesuwania guzika */
+    box-shadow: 0 0 15px rgba(46, 204, 113, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#status-indicator {
+    font-size: 10px;
+    color: #000;
+    font-weight: bold;
+}
+
+.documentation-text {
+    width: 100%;
+    max-width: 800px;
+    margin: 30px auto;
+    line-height: 1.6;
+    text-align: justify;
+    font-size: 0.95rem;
+}
+
+a.manifesto-link {
+    color: #2ecc71;
+    font-weight: bold;
+    text-decoration: none;
+    border-bottom: 1px solid #2ecc71;
+}
     width: 40px; /* Mniejszy, dyskretny */
     height: 40px;
     background-color: #2ecc71;
