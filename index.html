@@ -2,38 +2,52 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>GAP Widget: Session Tracker Green Button</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>GAP Widget: Session Tracker</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1>GAP Widget: Session Tracker Green Button</h1>
+    <h1>GAP Widget: Green Button Session Tracker</h1>
 
-    <div id="green-button" draggable="true">
+    <div id="green-button">
         <span id="status-indicator">IDLE</span>
     </div>
 
-    <div id="top-control-panel">
-        <input type="text" id="code-input-1" maxlength="6" placeholder="CODE 1" style="background:#000; color:#2ecc71; border:1px solid #2ecc71; text-align:center; padding:10px;">
-    </div>
-
     <div id="graph-container">
-        <div class="controller" style="top:5%; left:50%;" title="Unknown"></div>
-        <div class="controller" style="top:50%; left:95%;" title="Project"></div>
-        <div class="controller" style="top:95%; left:50%;" title="Creator"></div>
-        <div class="controller" style="top:50%; left:5%;" title="Interpreter"></div>
-    </div>
-
-    <div id="bottom-control-panel" style="display:flex; gap:15px; margin-top:20px;">
-        <select id="protocol-a" style="background:#111; color:#2ecc71; border:1px solid #444;"><option>PROTOCOL A</option></select>
-        <select id="protocol-b" style="background:#111; color:#2ecc71; border:1px solid #444;"><option>PROTOCOL B</option></select>
+        <div class="controller" style="top:5%; left:50%;"></div>
+        <div class="controller" style="top:50%; left:95%;"></div>
+        <div class="controller" style="top:95%; left:50%;"></div>
+        <div class="controller" style="top:50%; left:5%;"></div>
     </div>
 
     <div class="documentation-text">
-        <hr style="border:0; border-top:1px solid #222; margin: 40px 0;">
-        <p>The <strong>AUTARTOS S.A.</strong> system represents a pinnacle of sovereign digital navigation. By integrating 2D circular geometry with 4D time polynomials, the GAP Widget secures the user's Absolute Monarchy in "self-mode".</p>
-        <p>Current operational status is tracked via the floating Green Button, which monitors phases from IDLE to CLOSE, ensuring TPC & TPO protocol integrity.</p>
-        <p>Read the full <a href="MANIFESTO_ART3AI.md" class="manifesto-link">MANIFESTO_ART3AI.md</a> for deep-background insights.</p>
+        <p>The <strong>AUTARTOS S.A.</strong> system represents digital sovereignty.</p>
+        <p>Read the full <a href="https://github.com/TWOJA_NAZWA_UZYTKOWNIKA/TWOJE_REPOZYTORIUM/blob/main/MANIFESTO_ART3AI.md" target="_blank" class="manifesto-link">MANIFESTO_ART3AI.md</a></p>
+    </div>
+
+    <script>
+        const tracker = document.getElementById('green-button');
+
+        // Funkcja przesuwania dla myszki i dotyku
+        function move(e) {
+            let x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+            let y = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+            tracker.style.left = (x - 25) + 'px';
+            tracker.style.top = (y - 25) + 'px';
+        }
+
+        tracker.addEventListener('mousedown', () => { document.addEventListener('mousemove', move); });
+        document.addEventListener('mouseup', () => { document.removeEventListener('mousemove', move); });
+
+        // OBSŁUGA DOTYKU (DLA TELEFONU)
+        tracker.addEventListener('touchmove', function(e) {
+            e.preventDefault(); // Blokuje "skakanie" strony
+            move(e);
+        }, {passive: false});
+
+    </script>
+</body>
+</html>
     </div>
 
     <script>
