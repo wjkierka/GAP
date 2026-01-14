@@ -2,38 +2,101 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <style>
-        /* Estetyka Olbińskiego i Spójni Akacjowej */
-        body {
-            background: radial-gradient(circle at center, #1a2a6c, #b21f1f, #fdbb2d); /* Metafizyczne niebo */
-            color: #fff;
-            font-family: 'Georgia', serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAP Widget - AUTARTOS S.A.</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        #graph-container {
-            position: relative;
-            width: 400px;
-            height: 400px;
-            border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50%;
-            background: url('https://your-acacia-tree-image-url.jpg') no-repeat center; /* Tu wstawisz link do grafiki */
-            background-size: contain;
-            margin: 20px;
-        }
+    <div id="graph-container">
+        <div id="green-button">GAP</div>
+        
+        <div class="controller" style="top:5%; left:50%;" title="Niewiadoma"></div>
+        <div class="controller" style="top:50%; left:95%;" title="Projekt"></div>
+        <div class="controller" style="top:95%; left:50%;" title="Kreator"></div>
+        <div class="controller" style="top:50%; left:5%;" title="Interpreter"></div>
+    </div>
 
-        /* Green Button - Global Access Point */
-        #green-button {
-            width: 50px;
-            height: 50px;
-            background-color: #2ecc71;
-            border-radius: 50%;
-            position: absolute;
-            top: -60px; /* Pozycja IDLE (poza kołem) */
-            cursor: pointer;
-            box-shadow: 0 0 15px #2ecc71;
+    <div id="interpreter-hints" style="color: #f1c40f; text-align: center; font-style: italic; margin-bottom: 20px;">
+        System IDLE. Oczekiwanie na Kod 1...
+    </div>
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
+        <div style="display: flex; gap: 10px;">
+            <div style="color: #fff; font-size: 12px;">
+                <label>Source Selector:</label><br>
+                <select id="source-selector" style="background: #333; color: #2ecc71; border: 1px solid #2ecc71;">
+                    <option value="manual">Manual Entry</option>
+                    <option value="sheet">Link Sheet (Live Sync)</option>
+                    <option value="stream">Live Stream (API)</option>
+                    <option value="pro">Commercial Offer (PRO)</option>
+                </select>
+            </div>
+            <input type="text" id="code-input-1" maxlength="6" placeholder="Kod 1 (6 cyfr)" style="background: rgba(0,0,0,0.5); border: 1px solid #2ecc71; color: #2ecc71; text-align: center; width: 100px;">
+            <input type="text" id="code-input-2" maxlength="6" placeholder="Kod 2 (6 cyfr)" style="background: rgba(0,0,0,0.5); border: 1px solid #2ecc71; color: #2ecc71; text-align: center; width: 100px;">
+        </div>
+
+        <div id="final-code-display" style="font-size: 28px; color: #2ecc71; font-family: monospace; letter-spacing: 4px; height: 40px; text-shadow: 0 0 10px #2ecc71;"></div>
+    </div>
+
+    <script>
+        const greenButton = document.getElementById('green-button');
+        const hints = document.getElementById('interpreter-hints');
+        const display = document.getElementById('final-code-display');
+
+        // Reakcja na wpisanie Kodu 1 (Faza 2)
+        document.getElementById('code-input-1').addEventListener('input', (e) => {
+            if(e.target.value.length === 6) {
+                // Wejście Green Buttona do środka koła
+                greenButton.style.top = "50%";
+                greenButton.style.left = "50%";
+                hints.innerText = "Faza 2: Aktywna bionawigacja. Wprowadź Kod 2, aby przejść do finalizacji.";
+            }
+        });
+
+        // Reakcja na wpisanie Kodu 2 (Faza 3)
+        document.getElementById('code-input-2').addEventListener('input', (e) => {
+            if(e.target.value.length === 6) {
+                // Przejście Green Buttona na obrzeże
+                greenButton.style.top = "0%";
+                greenButton.style.left = "50%";
+                hints.innerText = "Faza 3: Ostatnia szansa na zmianę pozycji 1 i 6 w Kodach 1 i 3.";
+                
+                // Rozpoczęcie odliczania (np. 10 sekund)
+                let timer = 10;
+                const interval = setInterval(() => {
+                    hints.innerText = `Finalizacja sesji za: ${timer}s...`;
+                    timer--;
+                    if(timer < 0) {
+                        clearInterval(interval);
+                        zakonczSesje();
+                    }
+                }, 1000);
+            }
+        });
+
+        function zakonczSesje() {
+            const c1 = document.getElementById('code-input-1').value;
+            const c2 = document.getElementById('code-input-2').value;
+            // Kod 3 to odwrócony PIN (uproszczona logika dla demonstracji)
+            const c3 = c1.split('').reverse().join('');
+            
+            const fullCode = c1 + c2 + c3;
+            display.innerText = fullCode;
+            hints.innerText = "KOD WYGENEROWANY. Skopiuj go przed wygaśnięciem sesji.";
+
+            // Protokół zniknięcia (ulotność kodu)
+            setTimeout(() => {
+                display.innerText = "";
+                greenButton.style.top = "-80px"; // Powrót do IDLE
+                hints.innerText = "Sesja zamknięta. Dane wymazane. System IDLE.";
+                document.getElementById('code-input-1').value = "";
+                document.getElementById('code-input-2').value = "";
+            }, 10000); // Kod znika po 10 sekundach
+        }
+    </script>
+</body>
+</html>
             transition: all 0.5s ease;
             display: flex;
             justify-content: center;
