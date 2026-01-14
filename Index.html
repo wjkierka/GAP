@@ -2,38 +2,50 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAP Widget - AUTARTOS S.A.</title>
     <link rel="stylesheet" href="style.css">
+    <title>GAP Widget - Kontrola Operacyjna</title>
 </head>
 <body>
 
+    <div id="top-control-panel" style="margin-bottom: 20px; text-align: center;">
+        <label style="color: #fff; font-size: 12px; display: block; margin-bottom: 5px;">KOD 1 (Inicjacja):</label>
+        <input type="text" id="code-input-1" maxlength="6" placeholder="______" 
+               style="background: #000; color: #2ecc71; border: 2px solid #2ecc71; padding: 10px; text-align: center; font-size: 18px; width: 120px;">
+    </div>
+
     <div id="graph-container">
         <div id="green-button">GAP</div>
-        
         <div class="controller" style="top:5%; left:50%;" title="Niewiadoma"></div>
         <div class="controller" style="top:50%; left:95%;" title="Projekt"></div>
         <div class="controller" style="top:95%; left:50%;" title="Kreator"></div>
         <div class="controller" style="top:50%; left:5%;" title="Interpreter"></div>
     </div>
 
-    <div id="interpreter-hints" style="color: #f1c40f; text-align: center; font-style: italic; margin-bottom: 20px;">
-        System IDLE. Oczekiwanie na Kod 1...
+    <div id="bottom-control-panel" style="margin-top: 20px; display: flex; gap: 20px; justify-content: center;">
+        <div class="selector-cell">
+            <label style="color: #fff; font-size: 10px; display: block;">PROTOKÓŁ A (KOD 3):</label>
+            <select id="select-protocol-a" style="background: #111; color: #f1c40f; border: 1px solid #f1c40f; padding: 5px;">
+                <option value="default">Default (Self)</option>
+                <option value="coop">Co-op Mode</option>
+                <option value="b2b">B2B Standard</option>
+            </select>
+        </div>
+        <div class="selector-cell">
+            <label style="color: #fff; font-size: 10px; display: block;">OPCJE KOMERCYJNE:</label>
+            <select id="select-protocol-b" style="background: #111; color: #f1c40f; border: 1px solid #f1c40f; padding: 5px;">
+                <option value="free">Free Access</option>
+                <option value="archive">Zapis sesji (PRO)</option>
+                <option value="export">Eksport TPC/TPO</option>
+            </select>
+        </div>
     </div>
 
-    <div style="display: flex; flex-direction: column; align-items: center; gap: 15px;">
-        <div style="display: flex; gap: 10px;">
-            <div style="color: #fff; font-size: 12px;">
-                <label>Source Selector:</label><br>
-                <select id="source-selector" style="background: #333; color: #2ecc71; border: 1px solid #2ecc71;">
-                    <option value="manual">Manual Entry</option>
-                    <option value="sheet">Link Sheet (Live Sync)</option>
-                    <option value="stream">Live Stream (API)</option>
-                    <option value="pro">Commercial Offer (PRO)</option>
-                </select>
-            </div>
-            <input type="text" id="code-input-1" maxlength="6" placeholder="Kod 1 (6 cyfr)" style="background: rgba(0,0,0,0.5); border: 1px solid #2ecc71; color: #2ecc71; text-align: center; width: 100px;">
-            <input type="text" id="code-input-2" maxlength="6" placeholder="Kod 2 (6 cyfr)" style="background: rgba(0,0,0,0.5); border: 1px solid #2ecc71; color: #2ecc71; text-align: center; width: 100px;">
+    <div id="interpreter-hints" style="color: #f1c40f; text-align: center; margin-top: 20px; font-style: italic;">
+        Oczekiwanie na Kod 1...
+    </div>
+
+</body>
+</html>
         </div>
 
         <div id="final-code-display" style="font-size: 28px; color: #2ecc71; font-family: monospace; letter-spacing: 4px; height: 40px; text-shadow: 0 0 10px #2ecc71;"></div>
