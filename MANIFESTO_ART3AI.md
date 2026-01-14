@@ -8,7 +8,7 @@ Niniejszy dokument stanowi rzetelne rozwinięcie idei zawartych w stopce projekt
 ---
 
 ### 1. Świt na Szczudłach: Nowa Ontologia
-Wkraczamy w erę, o której pisał Czesław Miłosz w "Poranku" – gdy „świt na szczudłach wchodzi”, kładąc cień na starych strukturach poznawczych. Projekt **AUTARTOS S.A.** nie jest prostym narzędziem technologicznym. To owoc zderzenia fikcji literackiej z rzeczywistością cyfrową. 
+Wkraczamy w erę, o której pisał Czesław Miłosz w "Odnalezieniu" – gdy „świt na szczudłach wchodzi”, kładąc cień na starych strukturach poznawczych. Projekt **AUTARTOS S.A.** nie jest prostym narzędziem technologicznym. To owoc zderzenia fikcji literackiej z rzeczywistością cyfrową. 
 
 W naszej spójni **ART 3AI**, technologia nie służy do wyjaśniania wszystkiego; służy do chronienia tego, co ludzkie, suwerenne i niedopowiedziane.
 
