@@ -11,9 +11,9 @@
 
 ## 🌀 Visual Layout & 2D Geometry
 The widget features a **2D Circular Graph** set against a metaphysical background (Acacia Tree and Planetary System).
-* **The 4 Controllers:** Navigation is managed via four draggable points: **Unknown (Niewiadoma)**, **Project**, **Creator**, and **Interpreter**.
+* **The 4 Controllers (UPCI):** Navigation is managed via four draggable points: **Unknown**, **Project**, **Creator**, and **Interpreter**.
 * **Green Button (GAP/FBC):** * **IDLE:** Resides outside the circle.
-    * **Phase 2:** Enters the circle as a Floating Bionavigational Cursor (FBC).
+    * **Phase 2:** Enters the circle as a Freed Bionavigational Cursor (FBC).
     * **Phase 3:** Moves to the circumference for the final countdown.
     * **Post-Session:** Returns to IDLE state.
 
