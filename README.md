@@ -1,5 +1,7 @@
 # GAP — Global Access Point (Widget Ver. 2.1)
 
+This repository operates under the AUTARTOS S.A. General Terms & Conditions and the Sovereign Jurisdictional Disclaimer. Please refer to the root DISCLAIMER.md before initiating any session.
+
 **GAP (Global Access Point)** is a sovereign 2D Circular Geometry Navigation Processor designed for personalized encoding of digital communication and operations. Operating under the **ART 3AI** union (between the Data Administrator and Gemini 3AI Google), the widget implements a non-linear approach to session management using **TPC & TPO protocols** and the **Floating Copyright ©️** methodology.
 
 ---
