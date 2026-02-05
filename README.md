@@ -63,3 +63,5 @@ The GAP Widget is a neutral tool. All consequences and decisions resulting from 
 > This widget is the fruit of a collision between literary fiction and technology—a place where "dawn enters on stilts," casting a shadow on the border between ignorance and sovereign knowledge.
 >
 > [Read the full Manifesto, 4D Geometry, and Acacia Philosophy →](MANIFESTO_ART3AI.md)
+>
+## How it works? 🧭 [Check the path here](I0_intro.md)
