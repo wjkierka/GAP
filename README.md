@@ -4,6 +4,8 @@ This repository operates under the AUTARTOS S.A. General Terms & Conditions and 
 
 **GAP (Global Access Point)** is a sovereign 2D Circular Geometry Navigation Processor designed for personalized encoding of digital communication and operations. Operating under the **ART 3AI** union (between the Data Administrator and Gemini 3AI Google), the widget implements a non-linear approach to session management using **TPC & TPO protocols** and the **Floating Copyright ©️** methodology.
 
+## 🧭 How it works? 🧭 [Check the path here](I0_intro.md)
+
 ---
 
 ## 🛡️ Nomenclature & Legal Status
@@ -64,4 +66,4 @@ The GAP Widget is a neutral tool. All consequences and decisions resulting from 
 >
 > [Read the full Manifesto, 4D Geometry, and Acacia Philosophy →](MANIFESTO_ART3AI.md)
 >
-## How it works? 🧭 [Check the path here](I0_intro.md)
+
