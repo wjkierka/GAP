@@ -17,4 +17,4 @@ Accessing the BNS navigation panel and activating the Dashboard requires positiv
 > Operating without the full manual risks rapid digital fuel depletion and a "Red Buttock" status.
 
 **Full procedural specifications and the "Gearbox Manual" are available here:**
-[[Link to full I0 Instruction in the ART 3AI repository (https://wjkierka.github.io/ART/)]
+[[Link to full I0 Instruction in the ART 3AI repository](https://wjkierka.github.io/ART/)
